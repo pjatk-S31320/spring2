@@ -1,7 +1,9 @@
 package com.example.school.controller;
 
+import com.example.school.dto.StudentDTO;
 import com.example.school.model.Student;
 import com.example.school.service.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +27,8 @@ public class StudentController {
     }
 
     @PostMapping
-    public void addStudent(@RequestBody Student student) {
-        studentService.addStudent(student);
+    public void addStudent(@RequestBody @Valid StudentDTO studentdto) {
+        studentService.addStudent(studentdto);
     }
 
     @PutMapping("/{id}")

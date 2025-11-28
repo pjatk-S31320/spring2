@@ -1,5 +1,7 @@
 package com.example.school.service;
 
+import com.example.school.dto.StudentDTO;
+import com.example.school.mapper.StudentMapper;
 import com.example.school.model.Student;
 import com.example.school.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final StudentMapper studentMapper;
 
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
@@ -18,10 +21,11 @@ public class StudentService {
 
     public Student getStudentById(Long id) {
         return studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(RuntimeException::new);
     }
 
-    public Student addStudent(Student student) {
+    public Student addStudent(StudentDTO studentDTO) {
+        Student student = studentMapper.mapToStudent(studentDTO);
         return studentRepository.save(student);
     }
 
